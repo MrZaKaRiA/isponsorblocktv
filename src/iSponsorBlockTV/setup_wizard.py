@@ -1117,7 +1117,7 @@ class ISponsorBlockTVSetup(App):
         self.api_helper = api_helpers.ApiHelper(self.config, self.web_session)
         if self.check_for_old_config_entries():
             self.app.push_screen(MigrationScreen())
-            
+
     async def on_unmount(self) -> None:
         if self.web_session and not self.web_session.closed:
             await self.web_session.close()
