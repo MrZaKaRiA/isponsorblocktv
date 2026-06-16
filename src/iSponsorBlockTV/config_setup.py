@@ -75,8 +75,10 @@ def main(config, debug: bool) -> None:
 
     choice = get_yn_input(USE_PROXY_PROMPT)
     config.use_proxy = choice == "y"
-
-    loop = asyncio.get_event_loop_policy().get_event_loop()
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
     web_session = loop.run_until_complete(create_web_session(config.use_proxy))
     if debug:
         loop.set_debug(True)
